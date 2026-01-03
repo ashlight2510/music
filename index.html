@@ -9,71 +9,215 @@
     />
     <meta
       name="favicon"
-      content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3Ctext x='50' y='58' font-size='52' text-anchor='middle' fill='white' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E"
+      content="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%0A%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2724%27%20fill%3D%27%23f5b63a%27/%3E%0A%3Cpath%20d%3D%27M62%2022v38.5a13%2013%200%201%201-8-12V34l-18%204v24.5a13%2013%200%201%201-8-12V30l34-8z%27%20fill%3D%27%230f172a%27/%3E%0A%3C/svg%3E"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20100%20100%27%3E%0A%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2724%27%20fill%3D%27%23f5b63a%27/%3E%0A%3Cpath%20d%3D%27M62%2022v38.5a13%2013%200%201%201-8-12V34l-18%204v24.5a13%2013%200%201%201-8-12V30l34-8z%27%20fill%3D%27%230f172a%27/%3E%0A%3C/svg%3E"
     />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Work+Sans:wght@400;600&display=swap");
+
+      :root {
+        --ink: #0f172a;
+        --mint: #4cc9a6;
+        --sun: #f5b63a;
+        --sand: #fff7e6;
+        --card: #fffdf6;
+        --accent: #2a5b9e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: system-ui, sans-serif;
-        background: #f7f7fb;
-        padding: 40px;
+        margin: 0;
+        font-family: "Work Sans", system-ui, sans-serif;
+        color: var(--ink);
+        background: radial-gradient(
+            1200px 600px at 20% -10%,
+            #fef0c7 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at 90% 10%,
+            #d2f3ea 0%,
+            transparent 55%
+          ),
+          linear-gradient(180deg, #f9fafb 0%, #fff 100%);
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 48px 20px 60px;
       }
+
       .card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 24px;
-        max-width: 420px;
-        margin: auto;
+        position: relative;
+        background: var(--card);
+        border-radius: 24px;
+        padding: 32px 28px 30px;
+        max-width: 520px;
+        width: min(92vw, 520px);
         text-align: center;
+        border: 1px solid #f1e6c8;
+        box-shadow: 0 18px 40px rgba(30, 41, 59, 0.12);
+        overflow: hidden;
+        animation: float-in 700ms ease-out both;
       }
+
+      .card::before,
+      .card::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        opacity: 0.25;
+        z-index: 0;
+        filter: blur(2px);
+      }
+
+      .card::before {
+        background: #f5b63a;
+        top: -80px;
+        left: -60px;
+      }
+
+      .card::after {
+        background: #4cc9a6;
+        bottom: -90px;
+        right: -60px;
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      h2 {
+        font-family: "Fraunces", "Times New Roman", serif;
+        font-size: clamp(24px, 4vw, 30px);
+        margin: 0 0 6px;
+        letter-spacing: -0.3px;
+      }
+
+      .subtitle {
+        margin: 0 0 18px;
+        color: #475569;
+        font-size: 14px;
+      }
+
+      #timeText {
+        margin: 0 0 18px;
+        padding: 10px 12px;
+        background: #fff2d5;
+        border-radius: 999px;
+        display: inline-block;
+        font-size: 13px;
+      }
+
       button {
-        padding: 12px 18px;
-        border-radius: 12px;
+        padding: 12px 20px;
+        border-radius: 999px;
         border: 0;
-        background: #4f46e5;
+        background: var(--accent);
         color: #fff;
         font-size: 15px;
+        font-weight: 600;
         cursor: pointer;
+        box-shadow: 0 10px 18px rgba(42, 91, 158, 0.2);
+        transition: transform 180ms ease, box-shadow 180ms ease;
       }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 24px rgba(42, 91, 158, 0.25);
+      }
+
       .actions {
         display: flex;
         gap: 10px;
         justify-content: center;
         flex-wrap: wrap;
-        margin-top: 12px;
+        margin-top: 8px;
       }
+
       .secondary-link {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         padding: 12px 18px;
-        border-radius: 12px;
-        border: 1px solid #d8d8e8;
-        color: #2f2f45;
-        background: #f1f2f8;
+        border-radius: 999px;
+        border: 1px solid #e5d6b2;
+        color: #8a5b1e;
+        background: #fff7e6;
         font-size: 15px;
         text-decoration: none;
+        transition: transform 180ms ease, background 180ms ease;
       }
+
+      .secondary-link:hover {
+        transform: translateY(-1px);
+        background: #ffecc2;
+      }
+
       .result {
         margin-top: 20px;
         font-size: 15px;
+        line-height: 1.6;
+        color: #1f2937;
+      }
+
+      .result a {
+        color: #1d4ed8;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .result a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes float-in {
+        0% {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .card {
+          padding: 28px 22px;
+        }
+        .actions {
+          gap: 8px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="card">
-      <h2>🎵 지금 이 시간에 어울리는 음악</h2>
-      <p id="timeText"></p>
-      <div class="actions">
-        <button onclick="recommend()">추천받기</button>
-        <a
-          class="secondary-link"
-          href="https://funnyfunny.cloud/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >다른 서비스 보기</a
-        >
+      <div class="content">
+        <h2>🎵 지금 이 시간에 어울리는 음악</h2>
+        <p class="subtitle">하루의 리듬에 맞춰 오늘의 무드를 골라줘요.</p>
+        <p id="timeText"></p>
+        <div class="actions">
+          <button onclick="recommend()">추천받기</button>
+          <a
+            class="secondary-link"
+            href="https://funnyfunny.cloud/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >다른 서비스 보기</a
+          >
+        </div>
+        <div class="result" id="result"></div>
       </div>
-      <div class="result" id="result"></div>
     </div>
 
     <script>
