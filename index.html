@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>지금 이 시간에 어울리는 음악</title>
+    <meta
+      property="og:image"
+      content="https://dummyimage.com/1200x630/0f172a/ffffff&amp;text=Music"
+    />
+    <meta
+      name="favicon"
+      content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f172a'/%3E%3Ctext x='50' y='58' font-size='52' text-anchor='middle' fill='white' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E"
+    />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        background: #f7f7fb;
+        padding: 40px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        max-width: 420px;
+        margin: auto;
+        text-align: center;
+      }
+      button {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 0;
+        background: #4f46e5;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+      .secondary-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #d8d8e8;
+        color: #2f2f45;
+        background: #f1f2f8;
+        font-size: 15px;
+        text-decoration: none;
+      }
+      .result {
+        margin-top: 20px;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>🎵 지금 이 시간에 어울리는 음악</h2>
+      <p id="timeText"></p>
+      <div class="actions">
+        <button onclick="recommend()">추천받기</button>
+        <a
+          class="secondary-link"
+          href="https://funnyfunny.cloud/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >다른 서비스 보기</a
+        >
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      function getTimeMood(hour) {
+        if (hour >= 5 && hour <= 10)
+          return {
+            label: "아침",
+            tags: ["acoustic", "indie pop", "morning jazz"],
+          };
+        if (hour >= 11 && hour <= 14)
+          return {
+            label: "점심",
+            tags: ["city pop", "chill pop", "cafe music"],
+          };
+        if (hour >= 17 && hour <= 20)
+          return { label: "저녁", tags: ["r&b", "mellow pop", "sunset vibes"] };
+        return { label: "밤", tags: ["lofi", "ambient", "late night jazz"] };
+      }
+
+      function weightedRandom(tags) {
+        const pool = [
+          ...tags,
+          ...tags,
+          ...tags,
+          "indie",
+          "playlist",
+          "new music",
+        ];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      function recommend() {
+        const now = new Date();
+        const hour = now.getHours();
+        const mood = getTimeMood(hour);
+        const keyword = weightedRandom(mood.tags);
+        const query = `${mood.label} ${keyword} music`;
+
+        document.getElementById("result").innerHTML = `
+    <p>🕒 지금은 <b>${mood.label}</b> 시간이에요</p>
+    <p>🎧 추천 키워드: <b>${query}</b></p>
+    <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(
+      query
+    )}"
+       target="_blank">👉 유튜브에서 듣기</a>
+  `;
+      }
+
+      document.getElementById("timeText").innerText =
+        "현재 시각: " + new Date().toLocaleTimeString();
+    </script>
+  </body>
+</html>
